@@ -9,7 +9,11 @@ const buildControl = (props) => {
       <button className={styles.Add} onClick={props.addEvent}>
         Add
       </button>
-      <button className={styles.Remove} onClick={props.removeEvent}>
+      <button
+        className={styles.Remove}
+        onClick={props.removeEvent}
+        disabled={props.disabled}
+      >
         Remove
       </button>
     </div>
