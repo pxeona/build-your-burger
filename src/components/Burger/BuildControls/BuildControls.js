@@ -18,6 +18,7 @@ const buildControls = (props) => {
           key={control.label}
           label={control.label}
           addEvent={() => props.addIngredient(control.type)}
+          removeEvent={() => props.removeIngredient(control.type)}
         />
       ))}
     </div>
