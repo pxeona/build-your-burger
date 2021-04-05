@@ -5,6 +5,7 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import Backdrop from "../../components/UI/Backdrop/Backdrop";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -23,6 +24,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 4,
     purchasable: false,
+    purchasing: false,
   };
 
   updatePurchasabaleStatus = (ingredients) => {
@@ -70,6 +72,14 @@ class BurgerBuilder extends Component {
     this.updatePurchasabaleStatus(updatedIngredients);
   };
 
+  purchaseHandler = () => {
+    this.setState({ purchasing: true });
+  };
+
+  purchaseCancelHandler = () => {
+    this.setState({ purchasing: false });
+  };
+
   render() {
     const disabledButtons = { ...this.state.ingredients };
 
@@ -79,7 +89,11 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal>
+        <Backdrop
+          show={this.state.purchasing}
+          clicked={this.purchaseCancelHandler}
+        />
+        <Modal show={this.state.purchasing}>
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -89,6 +103,7 @@ class BurgerBuilder extends Component {
           disabledButtons={disabledButtons}
           price={this.state.totalPrice}
           purchasable={this.state.purchasable}
+          purchaseHandler={this.purchaseHandler}
         />
       </Aux>
     );
