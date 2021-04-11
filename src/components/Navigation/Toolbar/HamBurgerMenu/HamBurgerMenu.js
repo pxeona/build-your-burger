@@ -1,5 +1,13 @@
 import React from "react";
 
-const hamburgerMenu = (props) => <div onClick={props.clicked}>MENU</div>;
+import styles from "./HamBurgerMenu.module.css";
+
+const hamburgerMenu = (props) => (
+  <div className={styles.DrawerToggle} onClick={props.clicked}>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+);
 
 export default hamburgerMenu;

@@ -16,10 +16,6 @@
   .SideDrawer {
     display: none;
   }
-
-  .desktopOnly {
-    display: none;
-  }
 }
 
 .Open {
