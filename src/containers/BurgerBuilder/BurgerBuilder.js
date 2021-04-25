@@ -14,7 +14,6 @@ import * as actionTypes from "../../store/actions";
 
 class BurgerBuilder extends Component {
   state = {
-    purchasable: false,
     purchasing: false,
     loading: false,
     error: false,
@@ -31,7 +30,7 @@ class BurgerBuilder extends Component {
     const sum = Object.keys(ingredients)
       .map((ingredient) => ingredients[ingredient])
       .reduce((sum, value) => sum + value, 0);
-    this.setState({ purchasable: sum > 0 });
+    return sum > 0;
   };
 
   purchaseHandler = () => {
@@ -60,22 +59,23 @@ class BurgerBuilder extends Component {
     //   .then((response) => this.setState({ loading: false, purchasing: false }))
     //   .catch((error) => this.setState({ loading: false, purchasing: false }));
 
-    const queryParams = [];
-    for (let i in this.state.ingredients) {
-      queryParams.push(
-        encodeURIComponent(i) +
-          "=" +
-          encodeURIComponent(this.state.ingredients[i])
-      );
-    }
-    queryParams.push("price=" + this.state.totalPrice);
+    // const queryParams = [];
+    // for (let i in this.state.ingredients) {
+    //   queryParams.push(
+    //     encodeURIComponent(i) +
+    //       "=" +
+    //       encodeURIComponent(this.state.ingredients[i])
+    //   );
+    // }
+    // queryParams.push("price=" + this.state.totalPrice);
 
-    const queryString = queryParams.join("&");
+    // const queryString = queryParams.join("&");
 
-    this.props.history.push({
-      pathname: "/checkout",
-      search: "?" + queryString,
-    });
+    //   this.props.history.push({
+    //     pathname: "/checkout",
+    //     search: "?" + queryString,
+    //   });
+    this.props.history.push("/checkout");
   };
 
   render() {
@@ -102,7 +102,7 @@ class BurgerBuilder extends Component {
             removeIngredient={this.props.onIngredientRemoved}
             disabledButtons={disabledButtons}
             price={this.props.totalPrice}
-            purchasable={this.state.purchasable}
+            purchasable={this.updatePurchasabaleStatus(this.props.ings)}
             purchaseHandler={this.purchaseHandler}
           />
         </Aux>
